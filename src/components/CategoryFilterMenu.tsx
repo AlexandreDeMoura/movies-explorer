@@ -74,7 +74,7 @@ export default function ThemeFilter() {
     const categoryList = movies.map(movie => movie.category)
     const filteredCategoryList = removeOccurencesInList(categoryList)
     const [isFormOpen, setIsFormOpen] = useState(false)
-    const [selectedCategories, setSelectedCategories] = useState([])
+    const [selectedCategories, setSelectedCategories] = useState<any[]>([])
 
     const displaySelectedCategories = () => {
         let textToDisplay = ''
