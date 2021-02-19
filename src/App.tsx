@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { Provider } from "react-redux"
+import configureStore from './store/configureStore'
+import { makeStyles } from '@material-ui/core'
+import MoviesList from './components/MoviesList'
+import CategoryFilterMenu from './components/CategoryFilterMenu'
+import Pagination from './components/Pagination'
+import PaginationForm from './components/PaginationForm'
+
+const store = configureStore()
+const useStyles = makeStyles(theme => ({
+  main: {
+    padding: '30px 0',
+    height: '100vh',
+    backgroundColor: '#f5f5f5'
+  },
+  formContainer: {
+    marginBottom: 40,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+}))
 
 function App() {
+  const classes = useStyles()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Provider store={store}>
+      <main className={classes.main}>
+        <div className={classes.formContainer}>
+          <CategoryFilterMenu />
+          <PaginationForm />
+        </div>
+        <MoviesList />
+        <Pagination />
+      </main>
+    </Provider>
+  )
 }
 
-export default App;
+export default App
