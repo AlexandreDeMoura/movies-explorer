@@ -121,6 +121,10 @@ export const getMovieById = id =>
         state => state.movies,
         movies => movies.list.find(movie => movie.id === id)
     )
+export const getMovieListLength = createSelector(
+    state => state.movies,
+    movies => movies.list.length
+)
 export const getMoviePerPage = createSelector(
     state => state.movies,
     movies => movies.moviePerPage

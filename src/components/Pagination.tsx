@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons'
-import { getMoviePerPage, getActualPage, actualPageDecremented, actualPageUpdated, actualPageIncremented } from '../store/moviesReducer'
+import { getMoviePerPage, getActualPage, actualPageDecremented, actualPageUpdated, actualPageIncremented, getMovieListLength } from '../store/moviesReducer'
 import { makeStyles } from '@material-ui/core'
 import { createArrayOfN } from '../utilitaryFunctions/createArrayOfN'
 
@@ -31,9 +31,10 @@ const useStyles = makeStyles(theme => ({
 export default function Pagination() {
     const classes = useStyles()
     const dispatch = useDispatch()
+    const movieListLength = useSelector(getMovieListLength)
     const moviePerPage = useSelector(getMoviePerPage)
     const actualPage = useSelector(getActualPage)
-    const numberOfPages = Math.ceil(12 / moviePerPage)
+    const numberOfPages = Math.ceil(movieListLength / moviePerPage)
     const listOfPages = createArrayOfN(numberOfPages)
 
     const handlePageDecrement = () => {
@@ -43,7 +44,7 @@ export default function Pagination() {
     }
 
     const handlePageIncrement = () => {
-        if (actualPage * moviePerPage <= 12) {
+        if (actualPage * moviePerPage <= movieListLength) {
             dispatch(actualPageIncremented())
         }
     }
